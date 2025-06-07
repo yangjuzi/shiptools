@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipTools.top - 出海工具导航站</title>
+    <meta name="description" content="专为出海创业者打造的工具导航站，汇集需求灵感、建站工具、模板资源、咨询服务、推广营销、变现支付等全流程工具">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="nav-brand">
+                    <i class="fas fa-ship"></i>
+                    ShipTools.top
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">出海工具导航站</h1>
+            <p class="hero-description">为出海创业者精选的工具合集，助力您的全球化之路</p>
+        </div>
+    </section>
+
+    <!-- 工具分类 -->
+    <section class="categories">
+        <div class="container">
+            <!-- 分类导航 -->
+            <div class="categories-nav">
+                <div class="category-nav-item active" onclick="showCategory('inspiration')">需求灵感</div>
+                <div class="category-nav-item" onclick="showCategory('essentials')">上站必备</div>
+                <div class="category-nav-item" onclick="showCategory('templates')">上站模版效率</div>
+                <div class="category-nav-item" onclick="showCategory('consulting')">咨询</div>
+                <div class="category-nav-item" onclick="showCategory('marketing')">推广</div>
+                <div class="category-nav-item" onclick="showCategory('monetization')">变现支付</div>
+            </div>
+            
+            <!-- 工具展示区域 -->
+            <div class="tools-display">
+                <h2 class="tools-title" id="current-category-title">需求灵感工具</h2>
+                <div class="tools-grid" id="tools-container">
+                    <!-- 工具卡片将在这里动态显示 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">
+                        <i class="fas fa-ship"></i>
+                        ShipTools.top
+                    </div>
+                    <p class="footer-text">专业的出海工具导航站</p>
+                </div>
+                <div class="footer-links">
+                    <h4>联系我们</h4>
+                    <a href="mailto:contact@shiptools.top">contact@shiptools.top</a>
+                    <a href="#categories">工具推荐</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShipTools.top. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html> 
