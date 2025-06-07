@@ -1,4 +1,4 @@
-// ShipTools.top - JavaScript功能文件
+// ShipTools.top - 简洁版工具导航站
 
 // 工具数据
 const toolsData = {
@@ -124,80 +124,6 @@ const toolsData = {
     ]
 };
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    initializeNavigation();
-    initializeBackToTop();
-    initializeForm();
-
-    // 默认显示第一个分类
-    showCategory('inspiration');
-});
-
-// 导航功能
-function initializeNavigation() {
-    const navToggle = document.getElementById('nav-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            navToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-        
-        // 点击导航链接时关闭移动菜单
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-    }
-    
-    // 平滑滚动
-    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-    smoothScrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const headerHeight = 70;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// 返回顶部功能
-function initializeBackToTop() {
-    const backToTopBtn = document.getElementById('back-to-top');
-    
-    if (backToTopBtn) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-}
-
 // 分类标题映射
 const categoryTitles = {
     inspiration: '需求灵感工具',
@@ -208,16 +134,22 @@ const categoryTitles = {
     monetization: '变现支付工具'
 };
 
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 默认显示第一个分类
+    showCategory('inspiration');
+});
+
 // 工具分类切换功能
 function showCategory(categoryId) {
     // 移除所有按钮的active状态
-    const allButtons = document.querySelectorAll('.category-toggle');
+    const allButtons = document.querySelectorAll('.category-nav-item');
     allButtons.forEach(button => {
         button.classList.remove('active');
     });
     
     // 激活选中的按钮
-    const targetButton = document.querySelector(`[data-category="${categoryId}"] .category-toggle`);
+    const targetButton = document.querySelector(`[onclick="showCategory('${categoryId}')"]`);
     if (targetButton) {
         targetButton.classList.add('active');
     }
@@ -228,65 +160,24 @@ function showCategory(categoryId) {
         titleElement.textContent = categoryTitles[categoryId];
     }
     
-    // 在统一区域显示工具
+    // 在工具展示区域显示工具
     const toolsContainer = document.getElementById('tools-container');
     if (toolsContainer && toolsData[categoryId]) {
         const tools = toolsData[categoryId];
         const toolsHTML = tools.map(tool => `
-            <a href="${tool.url}" target="_blank" rel="noopener noreferrer" class="tool-item">
-                <div class="tool-icon">${tool.icon}</div>
-                <div class="tool-content">
+            <a href="${tool.url}" target="_blank" rel="noopener noreferrer" class="tool-card">
+                <div class="tool-header">
+                    <div class="tool-icon">${tool.icon}</div>
                     <div class="tool-name">${tool.name}</div>
-                    <div class="tool-description">${tool.description}</div>
                 </div>
-                <div class="tool-external">
-                    <i class="fas fa-external-link-alt"></i>
+                <div class="tool-description">${tool.description}</div>
+                <div class="tool-link">
+                    访问工具 <i class="fas fa-external-link-alt"></i>
                 </div>
             </a>
         `).join('');
         
         toolsContainer.innerHTML = toolsHTML;
-        
-        // 平滑滚动到工具展示区域
-        toolsContainer.scrollIntoView({ 
-            behavior: 'smooth', 
-            block: 'start' 
-        });
-    }
-}
-
-
-
-// 表单处理
-function initializeForm() {
-    const form = document.getElementById('submit-form');
-    
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const toolData = {
-                name: formData.get('tool-name'),
-                url: formData.get('tool-url'),
-                category: formData.get('tool-category'),
-                description: formData.get('tool-description')
-            };
-            
-            // 显示提交动画
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
-            submitBtn.disabled = true;
-            
-            // 模拟提交过程
-            setTimeout(() => {
-                alert('感谢您的推荐！我们会尽快审核并添加到网站中。');
-                form.reset();
-                submitBtn.innerHTML = originalHTML;
-                submitBtn.disabled = false;
-            }, 2000);
-        });
     }
 }
 
